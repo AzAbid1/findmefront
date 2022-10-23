@@ -30,7 +30,6 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   google_fonts: ^3.0.1
-  getwidget: ^3.0.1
   flutter:
     sdk: flutter
 
