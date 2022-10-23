@@ -1,5 +1,8 @@
-import 'package:findmefront/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'package:findmefront/utils/constants.dart';
+import 'screens/feed_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,106 +16,103 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: Constants.themeData,
-      home: const MyHomePage(title: 'FindMe'),
+      home: const MyHomePage(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List screens = [
+    {'title': 'Home', 'icon': Icons.home, 'screen': FeedScreen()},
+    {
+      'title': 'Notification',
+      'icon': Icons.notifications,
+      'screen': Text('Notification')
+    },
+    {'title': 'Messages', 'icon': Icons.chat, 'screen': Text('messagaes')},
+  ];
+
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    const List pages = [
-      {
-        'title': 'Home',
-        'icon': Icons.home,
-        'page': null,
-        'index': 0,
-      },
-      {
-        'title': 'Search',
-        'icon': Icons.search,
-        'page': null,
-        'index': 1,
-      },
-      {
-        'title': 'Notification',
-        'icon': Icons.notifications,
-        'page': null,
-        'index': 2,
-      },
-      {
-        'title': 'Profile',
-        'icon': Icons.chat,
-        'page': null,
-        'index': 3,
-      },
-    ];
+    // This code serves to block horizontal orientation (Aziz)
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitUp,
+    ]);
 
-    final bottomAppBar = BottomAppBar(
-        shape: const AutomaticNotchedShape(RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
-        )),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(width: 5),
-            for (Map item in pages)
-              Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: IconButton(
-                  icon: Icon(
-                    item['icon'],
-                    size: 25.0,
-                  ),
-                  onPressed: () => null,
-                ),
-              ),
-            const SizedBox(width: 5)
-          ],
-        ));
+    var bottomAppBar = BottomNavigationBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      unselectedItemColor: Colors.white70,
+      selectedItemColor: Colors.white,
+      currentIndex: currentIndex,
+      onTap: (index) {
+        setState(() {
+          currentIndex = index;
+        });
+      },
+      items: [
+        for (Map item in screens)
+          BottomNavigationBarItem(
+              icon: Icon(item['icon']), label: item['title']),
+      ],
+    );
 
     final appBar = AppBar(
       elevation: 0,
-      iconTheme: IconThemeData(color: Theme.of(context).colorScheme.primary),
+      leading: TextButton(
+        onPressed: null,
+        child: CircleAvatar(
+          backgroundImage: AssetImage('assets/images/profile_default.jpg'),
+        ),
+      ),
       title: Image.asset(
         'assets/images/logo.png',
         fit: BoxFit.fill,
         height: 35,
       ),
       centerTitle: true,
+      //actionsIconTheme: IconThemeData(color: Theme.of(context).colorScheme.primary),
       actions: [
-        Container(
-          margin: EdgeInsets.only(right: 5),
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/images/profile_default.jpg'),
-          ),
+        IconButton(
+          onPressed: null,
+          icon: Icon(Icons.search),
         )
       ],
     );
 
     return Scaffold(
-        drawer: Drawer(),
+        extendBody: true,
         appBar: appBar,
-        bottomNavigationBar: bottomAppBar,
+        bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: bottomAppBar),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).colorScheme.primary,
           onPressed: null,
-          child: Icon(Icons.add,color: Theme.of(context).colorScheme.secondary),
+          child:
+              Icon(Icons.add, color: Theme.of(context).colorScheme.secondary),
         ),
-        body: SingleChildScrollView(
-          child: Column(),
-        ));
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        body: screens[currentIndex]['screen'],
+        );
   }
 }
