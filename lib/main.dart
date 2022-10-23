@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'package:findmefront/utils/constants.dart';
 import 'screens/feed_screen.dart';
+import 'screens/create_post_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +18,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: Constants.themeData,
       home: const MyHomePage(),
+      routes: {
+        CreatePost.routeName: (ctx) => CreatePost(),
+      },
       debugShowCheckedModeBanner: false,
     );
   }
@@ -107,12 +111,15 @@ class _MyHomePageState extends State<MyHomePage> {
             child: bottomAppBar),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Theme.of(context).colorScheme.primary,
-          onPressed: null,
+          onPressed: () {
+            Navigator.of(context).pushNamed(CreatePost.routeName);
+          } ,
           child:
               Icon(Icons.add, color: Theme.of(context).colorScheme.secondary),
         ),
         // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         body: screens[currentIndex]['screen'],
+
         );
   }
 }

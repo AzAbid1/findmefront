@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:findmefront/widgets/post.dart';
+import 'package:findmefront/widgets/post_item.dart';
 
 class FeedScreen extends StatefulWidget {
   @override
@@ -37,7 +37,7 @@ class _FeedScreenState extends State<FeedScreen> {
         ),
         itemCount: images.length,
         itemBuilder: (BuildContext context, int index) {
-          return Post();
+          return PostItem();
         });
   }
 }
