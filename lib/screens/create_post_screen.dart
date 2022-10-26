@@ -14,13 +14,21 @@ class _CreatePostState extends State<CreatePost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.close, color: Theme.of(context).colorScheme.primary),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: const Text('Create Post'),
         actions: [
-          ElevatedButton(onPressed: null, child: Text('POST'))
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+              onPressed: null,
+              child: Text('POST'))
         ],
       ),
       body: Text('Form here'),
