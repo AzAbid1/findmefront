@@ -41,7 +41,7 @@ class _CreatePostState extends State<CreatePost> {
           itemCount: publications?.length,
           itemBuilder:(context,index) {
             return Container(
-              child:Text(publications![index].titre,style:TextStyle(fontSize: 24)),
+              child:Text(publications![index].titre),
           );
         },
         ),
