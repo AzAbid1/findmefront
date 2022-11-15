@@ -5,6 +5,7 @@ import 'feed_screen.dart';
 import 'create_post_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+  static const routeName = '/homepage';
   const HomeScreen({super.key});
 
   @override
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'icon': Icons.notifications,
       'screen': Text('Notification')
     },
-    {'title': 'Messages', 'icon': Icons.chat, 'screen': Text('messagaes')},
+    {'title': 'Messages', 'icon': Icons.chat, 'screen': Text('messages')},
   ];
 
   int currentIndex = 0;

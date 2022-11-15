@@ -17,7 +17,6 @@ class _CreatePostState extends State<CreatePost> {
   @override
   void initState(){
     super.initState();
-    //fetch date from api
     getData();
   }
   getData() async{
