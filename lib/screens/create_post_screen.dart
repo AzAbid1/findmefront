@@ -1,3 +1,4 @@
+import 'package:findmefront/models/Publication.dart';
 import 'package:flutter/material.dart';
 
 import '../models/Publication.dart';
