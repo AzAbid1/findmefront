@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/publication.dart';
+import '../models/Publication.dart';
 import '../services/remote_service.dart';
 
 class CreatePost extends StatefulWidget {
@@ -13,17 +13,18 @@ class CreatePost extends StatefulWidget {
 
 class _CreatePostState extends State<CreatePost> {
   List<Publication>? publications;
-  var isLoaded=false;
+  var isLoaded = false;
   @override
-  void initState(){
+  void initState() {
     super.initState();
     getData();
   }
-  getData() async{
-    publications=  await RemoteService().getPublications();
-    if (publications!=null){
+
+  getData() async {
+    publications = await RemoteService().getPublications();
+    if (publications != null) {
       setState(() {
-        isLoaded=true;
+        isLoaded = true;
       });
     }
   }
@@ -31,18 +32,19 @@ class _CreatePostState extends State<CreatePost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Create Post'),),
+      appBar: AppBar(
+        title: Text('Create Post'),
+      ),
       body: Visibility(
         visible: isLoaded,
-        replacement: const  Center(
-            child:CircularProgressIndicator()),
+        replacement: const Center(child: CircularProgressIndicator()),
         child: ListView.builder(
           itemCount: publications?.length,
-          itemBuilder:(context,index) {
+          itemBuilder: (context, index) {
             return Container(
-              child:Text(publications![index].titre),
-          );
-        },
+              child: Text(publications![index].titre),
+            );
+          },
         ),
       ),
     );
