@@ -17,6 +17,7 @@ class Publication {
     required this.description,
     required this.image,
     required this.nbVue,
+    required this.nbVote,
     required this.categorieId,
     required this.villeId,
     required this.userId,
@@ -29,6 +30,7 @@ class Publication {
   String description;
   String image;
   int nbVue;
+  int nbVote;
   int categorieId;
   int villeId;
   int userId;
@@ -41,6 +43,7 @@ class Publication {
         description: json["description"],
         image: json["image"],
         nbVue: json["nbVue"],
+        nbVote: json["nbVote"],
         categorieId: json["categorie_id"],
         villeId: json["ville_id"],
         userId: json["user_id"],
@@ -54,6 +57,7 @@ class Publication {
         "description": description,
         "image": image,
         "nbVue": nbVue,
+        "nbVote": nbVote,
         "categorie_id": categorieId,
         "ville_id": villeId,
         "user_id": userId,
